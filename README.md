@@ -1,5 +1,5 @@
-# Swarm Coppeliasim
-Used for making swarm experiments for blimps/other swarms in Coppeliasim. Experiments using the NEAT evolutionary algorithm to create swarm emergence ([paper](https://arxiv.org/abs/2309.14663)) are under ```\evolution```. 
+# simple blimp
+Create a basic blimp agent
 
 Tested on Ubuntu 20.04 with Python 3.8.
 
@@ -12,7 +12,6 @@ Tested on Ubuntu 20.04 with Python 3.8.
     Tested with [version 4.3.0 rev 12](https://www.coppeliarobotics.com/files/CoppeliaSim_Edu_V4_3_0_rev12_Ubuntu20_04.tar.xz) on Ubuntu 20.04
     
     We left the extracted folder in the ```~/Downloads``` folder.
-    If you need to change this, you should update line 16 in ```/src/swarm_expiriments.py```
 
     Example setup:
     ```bash
@@ -66,9 +65,9 @@ Tested on Ubuntu 20.04 with Python 3.8.
    Clone this directory, copy all the ```.lua``` files into the correct place (replace ```<path to coppelia>``` with the path to the Coppeliasim folder). This should be run from wherever you want the repo to be.
 
     ```bash
-    git clone --recurse-submodules https://github.com/pranavraj575/swarm_coppeliasim
-    cp swarm_coppeliasim/lua/* /<path to coppelia>/lua/
-    cd swarm_coppeliasim
+    git clone --recurse-submodules https://github.com/pranavraj575/blimple_as_that
+    cp blimple_as_that/lua/* /<path to coppelia>/lua/
+    cd blimple_as_that
     pip3 install -e .
     ```
     
@@ -93,7 +92,7 @@ Tested on Ubuntu 20.04 with Python 3.8.
     * clone the [sim_ros2_interface](https://github.com/CoppeliaRobotics/simExtROS2) directory and install dependencies.
       * The best way to do this is with the folder we made
           ```bash
-          cp -r /<path to swarm_coppeliasim>/setup_files/sim_ros2_interface ros2_ws/src
+          cp -r /<path to blimple_as_that>/setup_files/sim_ros2_interface ros2_ws/src
           ```
       * However, you can try setting up according to the [tutorial](https://www.coppeliarobotics.com/helpFiles/en/ros2Tutorial.htm) like this
           ```bash
@@ -137,7 +136,7 @@ Tested on Ubuntu 20.04 with Python 3.8.
 
   First open any coppelia scene with the ```coppelia``` command. Though not necessary, it might be useful to [spawn some objects](https://www.coppeliarobotics.com/helpFiles/index.html) to see the physics work.
 
-  Then run the following file from the ```swarm_coppeliasim``` directory
+  Then run the following file from the ```blimple_as_that``` directory
   ```bash
   python3 tests/testZeroMQRemoteAPI.py
   ```
@@ -148,55 +147,9 @@ Tested on Ubuntu 20.04 with Python 3.8.
 
   First open coppelia with the ```coppelia``` command
 
-  Then run the following file from the ```swarm_coppeliasim``` directory
+  Then run the following file from the ```blimple_as_that``` directory
   ```bash
-  python3 tests/ros_ctrl_test.py
+  python3 src/blimp_agent.py
   ```
-  This test will load an empty scene, spawn a blimp, then move the blimp up, printing the state aquired repeatedly. 
-  
-  Mess with the file (the RECCY variable) to output graphs of the state, and mess with the test variable to change the command given
+  This test will spawn a blimp, then move the blimp up, then after three seconds stop the scene. 
 
-* ### Swarm control experiments test
-  Tests if swarm experiments are set up properly
-
-  Run the following file from the ```swarm_coppeliasim``` directory
-  ```bash
-  python3 src/swarm_expiriment.py
-  ```
-  This test will load a scene, load a swarm of agents in different positions, and begin the simulation, giving each agent a basic command
-
-  The simulation will run for 10 seconds, then reset with a different swarm. Currently we implemented blimps, ankis, and quadcopters
-
-* ### Parallelism test
-  Tests if parallel instances of Coppeliasim can run 
-
-  Run the following file from the ```swarm_coppeliasim``` directory
-  ```bash
-  python3 tests/mult_scene_test.py
-  ```
-
-  This should open two instances of coppelia sim. A blimp will spawn in each scene, and a command of slight positive z velocity is given to one, and a slight negative z velocity to the other.
-  
-  Switch between the two windows and verify that there is no interference between the two blimps. One should fly straight up and the other straight down.
-  
-* ### Experiment/maze blimp test
-  tests the module setup and is pretty cool i think
-
-  Run the following file from the ```swarm_coppeliasim``` directory
-  ```bash
-  python3 src/maze_blimps.py
-  ```
-
-  This should open an instance of coppeliasim. A maze will be generated using pymaze, and the walls will be spawned into the simulation. 5 blimps will be spawned into the environment "start cell", and the simulation will start. Each blimp will start heading down towards the exit cell, probably not making it since the command is just 'go south'
-
-  This experiment will be run twice, and the 'goal data' will be printed for each experiment at the end of the script. The output is defined in ```src/maze_blimps``` under ```AmazingBlimp.goal_data```
-
-## Results
-* ### Anki Area Coverage Evolved Policy
-  ![](https://github.com/pranavraj575/swarm_coppeliasim/blob/master/evolution/checkpoints/10_anki_area_coverage/plots/anki_area.gif)
-* ### GT-MAB Area Coverage Evolved Policy
-  ![](https://github.com/pranavraj575/swarm_coppeliasim/blob/master/evolution/checkpoints/20_blimp_0_obstacle_area_coverage_wall_sense/plots/area_coverage_gen30.gif)
-* ### GT-MAB Wall Climb Evolved Policy
-  ![](https://github.com/pranavraj575/swarm_coppeliasim/blob/master/evolution/checkpoints/20_blimp_height_0_8_to_1_2_wall_climb_neighbor_rng_5_0/plots/wall_climb.gif)
-* ### GT-MAB Obstacle Surround Evolved Policy
-  ![](https://github.com/pranavraj575/swarm_coppeliasim/blob/master/evolution/checkpoints/6_blimp_1_cylinder_obstacle_surround_range_4_0/plots/spinny_cylinder.gif)
