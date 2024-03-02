@@ -1,8 +1,0 @@
-README.md
-setup.py
-blimple_as_that.egg-info/PKG-INFO
-blimple_as_that.egg-info/SOURCES.txt
-blimple_as_that.egg-info/dependency_links.txt
-blimple_as_that.egg-info/requires.txt
-blimple_as_that.egg-info/top_level.txt
-tests/testZeroMQRemoteAPI.py
