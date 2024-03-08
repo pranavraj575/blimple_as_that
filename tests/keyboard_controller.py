@@ -1,10 +1,10 @@
-from src.blimp_agent import BlimpAgent
+from src.blimp_agent import *
 
 from pynput.keyboard import Key, Listener
 import numpy as np
 import time
 
-bb=BlimpAgent()
+bb=BlimpAgent(blimpPath=narrow_blimp_path)
 bb.spawnAgent((0,0,1))
 bb.sim.startSimulation()
 ACTIVE=True
@@ -23,16 +23,22 @@ def on_press(key):
     global up,down,left,right,space,shift
     
     if key==Key.up:
+        print('y+ recorded')
         up=True
     elif key==Key.down:
+        print('y- recorded')
         down=True
     elif key==Key.left:
+        print('x+ recorded')
         left=True
     elif key==Key.right:
+        print('x- recorded')
         right=True
     elif key==Key.space:
+        print('z+ recorded')
         space=True
     elif key==Key.shift:
+        print('z- recorded')
         shift=True
     
 def on_release(key):
@@ -52,6 +58,7 @@ def on_release(key):
         shift=False
     elif key==Key.esc:
         ACTIVE=False
+
 def update_vec():
     vec[2]=float(space-shift)
     vec[0]=float(right-left)
