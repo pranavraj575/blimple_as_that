@@ -1,6 +1,5 @@
 from src.blimp_agent import BlimpAgent
 
-from pynput.keyboard import Key, Listener
 import numpy as np
 import time
 
@@ -19,8 +18,8 @@ left=False
 space=False
 shift=False
 
-mapping=('w','a','s','d',Key.space,Key.shift)
-# y+, x-, y-, x+, z+, z- 
+mapping=('w','a','s','d','p','l', '')
+# y+, x-, y-, x+, z+, z-, stop
 
 def on_press(key):
     global up,down,left,right,space,shift
@@ -28,48 +27,51 @@ def on_press(key):
     if key==mapping[0]:
         print('y+ recorded')
         up=True
+        down=False
     elif key==mapping[2]:
         print('y- recorded')
         down=True
+        up=False
     elif key==mapping[3]:
         print('x+ recorded')
         right=True
+        left=False
     elif key==mapping[1]:
         print('x- recorded')
         left=True
+        right=False
     elif key==mapping[4]:
         print('z+ recorded')
         space=True
+        shift=False
     elif key==mapping[5]:
         print('z- recorded')
         shift=True
-    
-def on_release(key):
-    global up,down,left,right,space,shift,ACTIVE
-    
-    if key==mapping[0]:
-        up=False
-    elif key==mapping[2]:
-        down=False
-    elif key==mapping[3]:
-        right=False
-    elif key==mapping[1]:
-        left=False
-    elif key==mapping[4]:
         space=False
-    elif key==mapping[5]:
+    elif key==mapping[6]:
+        print('stop motion')
+        up=False
+        down=False
+        left=False
+        right=False
+        space=False
         shift=False
-    elif key==Key.esc:
-        ACTIVE=False
+
 
 def update_vec():
     vec[2]=float(space-shift)
     vec[0]=float(right-left)
     vec[1]=float(up-down)
     
-listen=Listener(on_press=on_press,on_release=on_release)
-listen.start()
+def take_input():
+    direct=input('direction:')
+    if direct in mapping:
+        on_press(direct)
+    else:
+        print('choose from',mapping)
+    
 while ACTIVE:
+    take_input()
     update_vec()
     bb.move_agent(vec)
     time.sleep(.01)

@@ -1,0 +1,5 @@
+
+blimple_as_that.egg-info/
+**/blimple_as_that.egg-info/
+*.egg-info/
+**.egg-info/

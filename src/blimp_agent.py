@@ -73,7 +73,7 @@ def spawnModel(sim,modelPath, pos, orient=None):
 class BlimpAgent:
 
     def __init__(self,
-                 blimpPath,
+                 blimpPath=narrow_blimp_path,
                  sim=None,
                  msg_queue=10,
                  agent_id=0,
