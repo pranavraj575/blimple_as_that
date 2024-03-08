@@ -1,4 +1,7 @@
-
+__pycache__/
+**/__pycache__/
+.idea/
+**/.idea/
 blimple_as_that.egg-info/
 **/blimple_as_that.egg-info/
 *.egg-info/
