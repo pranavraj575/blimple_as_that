@@ -1,6 +1,9 @@
+import sys
+sys.path.append("..")
+
 from src.blimp_agent import BlimpAgent
 
-from pynput.keyboard import Key, Listener
+from pynput.keyboard import *
 import numpy as np
 import time
 
@@ -9,7 +12,7 @@ bb.spawnAgent((0,0,1))
 bb.sim.startSimulation()
 ACTIVE=True
 
-vec=np.zeros(3)
+vec=np.zeros(4)
 
 
 up=False
@@ -19,13 +22,18 @@ left=False
 space=False
 shift=False
 
-mapping=('w','a','s','d',Key.space,Key.shift)
-# y+, x-, y-, x+, z+, z- 
+print(KeyCode.from_char('w'))
+
+mapping=(KeyCode.from_char('w'),KeyCode.from_char('a'),KeyCode.from_char('s'),KeyCode.from_char('d'),Key.space,Key.shift, Key.left, Key.right)
+# y+, x-, y-, x+, z+, z-
+
 
 def on_press(key):
     global up,down,left,right,space,shift
+
+    print(key, mapping[0])
     
-    if key==mapping[0]:
+    if key==KeyCode.from_char('w'):
         print('y+ recorded')
         up=True
     elif key==mapping[2]:
@@ -66,6 +74,7 @@ def update_vec():
     vec[2]=float(space-shift)
     vec[0]=float(right-left)
     vec[1]=float(up-down)
+    vec[3] = float(up - down)
     
 listen=Listener(on_press=on_press,on_release=on_release)
 listen.start()

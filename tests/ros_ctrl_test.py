@@ -6,11 +6,20 @@ from geometry_msgs.msg import TwistStamped
 import time
 import numpy as np
 
+sys.path.append("..")
+
 PI = 3.14159
 SIMID = 23000
-DIR = os.path.dirname(os.path.join(os.getcwd(), os.path.dirname(sys.argv[0])))
 
-msgfile = os.path.join(DIR, 'lua', 'rosMsg.lua')
+path = os.getcwd()
+DIR = os.path.dirname(path)
+#DIR = os.path.dirname(os.path.join(os.getcwd(), os.path.dirname(sys.argv[0])))
+
+print(path)
+print(DIR)
+
+
+msgfile = os.path.join("../", 'lua', 'rosMsg.lua')
 TOPIC_NAMES = dict()
 with  open(msgfile) as f:
     r = [t.split('=') for t in f.read().strip().split('\n') if '=' in t]
@@ -67,6 +76,7 @@ def main(args=None):
         sceneNamePath = os.path.abspath(os.path.expanduser(SCENEDIR))
         sim.stopSimulation()
         time.sleep(1)
+        print(sceneNamePath)
         sim.loadScene(sceneNamePath)
         time.sleep(1)
 

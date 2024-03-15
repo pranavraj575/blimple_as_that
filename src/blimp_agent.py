@@ -10,7 +10,7 @@ from CONFIG import *
 
 DIR = os.path.dirname(os.path.join(os.getcwd(), os.path.dirname(sys.argv[0])))
 
-msgfile = os.path.join(DIR, 'lua', 'rosMsg.lua')
+msgfile = os.path.join("../", 'lua', 'rosMsg.lua')
 TOPIC_NAMES = dict()
 with  open(msgfile) as f:
     r = [t.split('=') for t in f.read().strip().split('\n') if '=' in t]
@@ -24,7 +24,7 @@ caged_wall_climb_path = os.path.join(DIR, 'scenes', 'wall_climb_caged.ttt')
 cage_arena_path = os.path.join(DIR, 'scenes', 'cage_arena_better.ttt')
 empty_path = os.path.join(DIR, 'scenes', 'empty.ttt')
 
-narrow_blimp_path = os.path.join(DIR, 'ros_ctrl_models', 'blimp_narrow.ttm')
+narrow_blimp_path = os.path.join("../", 'ros_ctrl_models', 'blimp_narrow.ttm')
 
 def init_sim(simId):
     from zmqRemoteApi import RemoteAPIClient
@@ -64,6 +64,10 @@ def spawnModel(sim,modelPath, pos, orient=None):
         roll, pitch, yaw
     @return: handle of model spawned
     """
+    print("made it here")
+    print(os.path.abspath(os.path.expanduser(modelPath)))
+    print(modelPath)
+    print()
     agentHandle = sim.loadModel(os.path.abspath(os.path.expanduser(modelPath)))
     
     moveObject(sim=sim,handle=agentHandle, pos=pos, orient=orient)
@@ -242,6 +246,7 @@ class BlimpAgent:
         msgTwist.linear.x = float(vec[0])
         msgTwist.linear.y = float(vec[1])
         msgTwist.linear.z = float(vec[2])
+        msgTwist.angular.z = float(vec[3])
 
         self.agentData['vec_publisher'].publish(msgTwist)
 
@@ -285,7 +290,7 @@ if __name__ == "__main__":
     bb.spawnAgent((0,0,1))
     bb.sim.startSimulation()
     time.sleep(1)
-    bb.move_agent((0,0,.5))
+    bb.move_agent((0,0,2,0))
     time.sleep(3)
     bb.sim.stopSimulation()
     
