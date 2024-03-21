@@ -90,6 +90,7 @@ function ctrlsFromHead(head,CARE)
     return -actuation,-actuation,actuation,actuation
     --frontLeftMF,backRightMF,frontRightMF,backLeftMF
 end
+
 function ctrlsFromVel(target_vel)
     MEM=0.
     blimpPosition = blimpState["position"]

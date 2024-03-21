@@ -35,6 +35,7 @@ OMEGA_DEADBAND = 0.01 -- rads, delta from orientation facing goal
 DIST_DEADBAND = 0.01 -- m, delta from goalpoint, only 2d dist
 STEERING_BAND = 5* 3.14/180 -- rads, band that allows forward motion if blimp is facing correct orientation
 
+MAX_ALT_VEL = 0.35
 
 -- For air drag, applied x,y, we can calculate based on maximum velocity and apply 
 -- an air drag force in a similar fashion as the bouyant force

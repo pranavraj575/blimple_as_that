@@ -10,7 +10,9 @@ from CONFIG import *
 
 DIR = os.path.dirname(os.path.join(os.getcwd(), os.path.dirname(sys.argv[0])))
 
-msgfile = os.path.join("../", 'lua', 'rosMsg.lua')
+print(DIR)
+
+msgfile = os.path.join('lua', 'rosMsg.lua')
 TOPIC_NAMES = dict()
 with  open(msgfile) as f:
     r = [t.split('=') for t in f.read().strip().split('\n') if '=' in t]
@@ -24,7 +26,7 @@ caged_wall_climb_path = os.path.join(DIR, 'scenes', 'wall_climb_caged.ttt')
 cage_arena_path = os.path.join(DIR, 'scenes', 'cage_arena_better.ttt')
 empty_path = os.path.join(DIR, 'scenes', 'empty.ttt')
 
-narrow_blimp_path = os.path.join("../", 'ros_ctrl_models', 'blimp_narrow.ttm')
+narrow_blimp_path = os.path.join('models', 'blimp_narrow.ttm')
 
 def init_sim(simId):
     from zmqRemoteApi import RemoteAPIClient
