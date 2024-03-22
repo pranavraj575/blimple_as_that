@@ -7,15 +7,14 @@ Tested on Windows WSL2 running Ubuntu 22.04 with CoppeliaSim v4.6.0-rev18, Pytho
 
 1. ### Install [Coppeliasim](https://www.coppeliarobotics.com/)
 
-    * sudo apt-get update && upgrade
+    * sudo apt-get update && apt-get upgrade
     * sudo apt-get install libgl1
-    * sudo apt-install python3 pip
+    * sudo apt-get install python3 pip
     * sudo apt-get install '^libxcb.*-dev' libx11-xcb-dev libglu1-mesa-dev libxrender-dev libxi-dev libxkbcommon-dev libxkbcommon-x11-dev
     * python3 -m pip install pyzmq cbor2
     * wget https://downloads.coppeliarobotics.com/V4_6_0_rev16/CoppeliaSim_Edu_V4_6_0_rev18_Ubuntu22_04.tar.xz
     * tar -xvf CoppeliaSim_Edu_V4_6_0_rev16_Ubuntu22_04.tar.xz
     * ./copelliaSim.sh
-    *
     
     Update your ```.bashrc``` with the following (the alias is not required, it just makes it easier to run Coppeliasim)
     
