@@ -59,7 +59,10 @@ Tested on Windows WSL2 running Ubuntu 22.04 with CoppeliaSim v4.6.0-rev18, Pytho
     ```bash
     source ~/.bashrc
     ```
-   
+4. ### Clone this directory
+   ```bash
+    git clone https://github.com/pranavraj575/blimple_as_that
+    ```
 4. ### Install the ROS2 Coppelia package "according to the [tutorial](https://www.coppeliarobotics.com/helpFiles/en/ros2Tutorial.htm)"
 
     However, the tutorial sucks, so following the directions below will work
